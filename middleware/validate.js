@@ -6,7 +6,7 @@ function validateProjectBody() {
             res.status(400).json({
                 message: "Missing Project Data"
             })
-        } else if (!req.body.name || req.body.description) {
+        } else if (!req.body.name || !req.body.description) {
             res.status(400).json({
                 message:" Missing required name and description field"
             })

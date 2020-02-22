@@ -41,7 +41,16 @@ router.get("/:id", validateProjectID(), (req, res, next) => {
 // })
 //..............................................................ENDS HERE
 
-//------------------------------- jose
+
+router.post("/", validateProjectBody(), (req, res, next) =>{
+    projectDB.insert(req.body)
+    .then(projecBody => {
+        res.status(201).json(projecBody)
+    })
+    .catch(next)
+
+})
+
 
 module.exports = router
 
