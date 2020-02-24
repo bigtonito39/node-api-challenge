@@ -96,9 +96,11 @@ router.put("/:id",validateProjectBody(),validateProjectID(), (req, res, next) =>
 
 
 //--------------------------------------------------------get actions based on users id
-
-router.get("/:id/actions", validateProjectID(), (req, res, next) => {
-    projectDB.getProjectActions(req.param.id)
+//
+router.get("/actions/:id", validateProjectID(), (req, res, next) => {
+    //need to save ID here
+    const id = req.params.id
+    projectDB.getProjectActions(id)
      .then(actionsPerUser => {
          res.status(200).json(actionsPerUser)
      })
