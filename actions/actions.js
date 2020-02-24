@@ -32,5 +32,23 @@ router.post("/",validateActionBody(), (req, res, next) => {
    })
 })
 
+router.put("/:id",validateActionId(),validateActionBody(), (req, res, next) =>{
+    actionsDB.update(req.params.id, req.body)
+    .then(updatedAction => {
+        if(updatedAction) {
+            res.status(200).json(updatedAction)
+        }
+        else {
+            res.status(404).json({
+                message:"The action could not be found"
+            })
+        }
+        
+    })
+    .catch(error => {
+next(error)
+    })
+} )
+
 
 module.exports = router
