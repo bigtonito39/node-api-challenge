@@ -4,7 +4,7 @@ const {validateActionBody, validateActionId} = require("../middleware/validate")
 
 
 const router = express.Router()
-
+//get list of actions
 router.get("/", (req, res) => {
     actionsDB.get()
     .then((response) => {
@@ -21,6 +21,24 @@ router.get("/", (req, res) => {
         next(error)
     })
 })
+
+//get specific action based on id:
+router.get("/:id",validateActionId(), (req, res, next) => {
+    actionsDB.get(req.params.id)
+    .then(response => {
+        if (response){
+            res.status(200).json(response)
+        }
+        else{
+            return res.status(404).json({
+                message:"Specific action with this ID was not found"
+            })
+        }
+    })
+    .catch(error => {
+        next(error)
+    })
+} )
 
 router.post("/",validateActionBody(), (req, res, next) => {
   actionsDB.insert(req.body)
