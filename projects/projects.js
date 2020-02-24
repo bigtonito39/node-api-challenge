@@ -95,7 +95,7 @@ router.put("/:id",validateProjectBody(),validateProjectID(), (req, res, next) =>
 //---------------------ends here
 
 
-//--------------------------------------------------------get actions based on users id
+//-----get actions based on users id
 //
 router.get("/actions/:id", validateProjectID(), (req, res, next) => {
     //need to save ID here
