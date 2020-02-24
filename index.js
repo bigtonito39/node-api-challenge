@@ -1,14 +1,33 @@
-/*
-play this: https://www.youtube.com/watch?v=d-diB65scQU
+//npm install > npm install express > npm install nodemon > npm install dotenv (thi is to be able have port dinamically changing in order to be able to communicate with different
+//enviroment and therefore be able to deploy our backend api to horoku )
 
-Sing along:
+//this is calling the .dev file which is use to setup our port to be dinamic, this has to be called always on top
+//make sure to add .env in the gitignore file, so that its not visible in github
+require("dotenv").config();
 
-here's a little code I wrote, please read the README word for word, don't worry, you got this
-in every task there may be trouble, but if you worry you make it double, don't worry, you got this
-ain't got no sense of what is REST? just concentrate on learning Express, don't worry, you got this
-your file is getting way too big, bring a Router and make it thin, don't worry, be crafty
-there is no data on that route, just write some code, you'll sort it out… don't worry, just hack it…
-I need this code, but don't know where, perhaps should make some middleware, don't worry, just hack it
 
-Go code!
-*/
+
+
+const express = require("express");
+const welcome = require("./welcome/welcome")
+const logger = require("./middleware/logger")
+const projectsRouter = require("./projects/projects")
+const actionsRouter = require("./actions/actions")
+
+const server = express()
+//Here we are calling our port from .env file
+const port = process.env.PORT;
+
+server.use(express.json())
+server.use(logger("short")) //to log short version of moves i do
+
+server.use("/", welcome),
+server.use("/api/projects", projectsRouter)
+server.use("/api/actions",actionsRouter )
+
+
+
+
+server.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`)  
+})
