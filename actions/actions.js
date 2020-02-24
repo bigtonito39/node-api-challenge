@@ -40,6 +40,8 @@ router.get("/:id",validateActionId(), (req, res, next) => {
     })
 } )
 
+
+//funtionality to add an action
 router.post("/",validateActionBody(), (req, res, next) => {
   actionsDB.insert(req.body)
   .then(actionBody => {
