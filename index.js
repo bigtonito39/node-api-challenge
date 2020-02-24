@@ -1,4 +1,12 @@
-//npm install > npm install express > npm install nodemon
+//npm install > npm install express > npm install nodemon > npm install dotenv (thi is to be able have port dinamically changing in order to be able to communicate with different
+//enviroment and therefore be able to deploy our backend api to horoku )
+
+//this is calling the .dev file which is use to setup our port to be dinamic, this has to be called always on top
+//make sure to add .env in the gitignore file, so that its not visible in github
+require("dotenv").config();
+
+
+
 
 const express = require("express");
 const welcome = require("./welcome/welcome")
@@ -7,7 +15,8 @@ const projectsRouter = require("./projects/projects")
 const actionsRouter = require("./actions/actions")
 
 const server = express()
-const port = 3000;
+//Here we are calling our port from .env file
+const port = process.env.PORT;
 
 server.use(express.json())
 server.use(logger("short")) //to log short version of moves i do
