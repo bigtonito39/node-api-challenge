@@ -32,6 +32,8 @@ router.post("/",validateActionBody(), (req, res, next) => {
    })
 })
 
+
+
 router.put("/:id",validateActionId(),validateActionBody(), (req, res, next) =>{
     actionsDB.update(req.params.id, req.body)
     .then(updatedAction => {
@@ -50,5 +52,24 @@ next(error)
     })
 } )
 
+router.delete("/:id",validateActionId(), (req, res, next) => {
+   
+    actionsDB.remove(req.params.id)
+
+    .then(deletedAction => {
+        if (deletedAction > 0) {
+            res.status(200).json({
+                message: "Action has been deleted"
+            })
+        } else {
+            res.status(404).json({
+                message:"Actions to delete found"
+            })
+        }
+    })
+      .catch(error => {
+          next(error)
+      })
+} )
 
 module.exports = router

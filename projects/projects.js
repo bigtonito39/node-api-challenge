@@ -64,6 +64,12 @@ router.delete("/:id",validateProjectID(), (req, res, next) => {
             res.status(200).json({
             message:"Project has been deleted"})
         }
+        else {
+            res.status(404).json({
+                message: "Project to delete not found"
+                
+            })
+        }
         
     })
     .catch( error => {
@@ -95,7 +101,7 @@ router.put("/:id",validateProjectBody(),validateProjectID(), (req, res, next) =>
 //---------------------ends here
 
 
-//-----get actions based on users id
+//-----Very important Endpoint here, get actions based on users id
 //
 router.get("/actions/:id", validateProjectID(), (req, res, next) => {
     //need to save ID here
